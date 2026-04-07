@@ -21,8 +21,10 @@ export const clearTokens = (): void => {
 
 export const isTokenExpired = (token: string): boolean => {
   try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload.exp * 1000 < Date.now();
+    const parts = token.split('.');
+    if (parts.length !== 3) return true;
+    const payload = JSON.parse(atob(parts[1]));
+    return typeof payload.exp !== 'number' || payload.exp * 1000 < Date.now();
   } catch {
     return true;
   }

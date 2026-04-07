@@ -28,7 +28,7 @@ const uiSlice = createSlice({
     addNotification: (state, action: PayloadAction<Omit<Notification, 'id'>>) => {
       state.notifications.push({
         ...action.payload,
-        id: crypto.randomUUID(),
+        id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
       });
     },
     removeNotification: (state, action: PayloadAction<string>) => {

@@ -37,7 +37,7 @@ api.interceptors.response.use(
           refresh: refreshToken,
         });
         const { access, refresh } = response.data;
-        setTokens({ access, refresh: refresh || refreshToken });
+        setTokens({ access, refresh: refresh ?? refreshToken });
         originalRequest.headers.Authorization = `Bearer ${access}`;
         return api(originalRequest);
       } catch {
