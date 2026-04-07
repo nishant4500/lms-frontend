@@ -37,6 +37,7 @@ api.interceptors.response.use(
           refresh: refreshToken,
         });
         const { access, refresh } = response.data;
+        // Some backends rotate refresh tokens on each use; fall back to the existing token if not rotated
         setTokens({ access, refresh: refresh ?? refreshToken });
         originalRequest.headers.Authorization = `Bearer ${access}`;
         return api(originalRequest);
